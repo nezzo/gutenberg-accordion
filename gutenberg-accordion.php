@@ -11,27 +11,27 @@ if (!defined("ABSPATH")){
 }
 
 function gutenberg_accordion_register_block() {
-    $asset_file = include( plugin_dir_path( __FILE__ ) . 'build/index.asset.php' );
+    $asset_file = include(plugin_dir_path( __FILE__) . "build/index.asset.php");
 
     wp_register_script(
         "gutenberg-accordion-block",
-        plugins_url("build/index.js", __FILE__ ),
+        plugins_url("build/index.js", __FILE__),
         $asset_file["dependencies"],
         $asset_file["version"]
     );
 
     wp_register_style(
         "gutenberg-accordion-style",
-        plugins_url("build/style-index.css", __FILE__ ),
+        plugins_url("build/style-index.css", __FILE__),
         [],
-        filemtime(plugin_dir_path( __FILE__ ) . "build/style-index.css")
+        filemtime(plugin_dir_path( __FILE__) . "build/style-index.css")
     );
 
     wp_register_style(
         "gutenberg-accordion-editor-style",
-        plugins_url("build/index.css", __FILE__ ),
+        plugins_url("build/index.css", __FILE__),
         ["wp-edit-blocks"],
-        filemtime( plugin_dir_path( __FILE__ ) . "build/index.css")
+        filemtime(plugin_dir_path( __FILE__) . "build/index.css")
     );
 
     register_block_type("gutenberg/accordion", [
@@ -41,3 +41,14 @@ function gutenberg_accordion_register_block() {
     ] );
 }
 add_action("init", "gutenberg_accordion_register_block");
+
+function gutenberg_accordion_enqueue_scripts() {
+    wp_enqueue_script(
+        "gutenberg-accordion-script",
+        plugins_url("src/js/accordion.js", __FILE__),
+        [],
+        filemtime(plugin_dir_path( __FILE__) . "src/js/accordion.js"),
+        true 
+    );
+}
+add_action("wp_enqueue_scripts", "gutenberg_accordion_enqueue_scripts");

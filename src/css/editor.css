@@ -1,0 +1,19 @@
+.gutenberg-accordion {
+    border: 2px dashed #ccc;
+    padding: 10px;
+}
+
+.gutenberg-accordion .accordion-item {
+    margin-bottom: 10px;
+    background: #f0f0f0;
+}
+
+.gutenberg-accordion .accordion-title {
+    font-size: 1.2em;
+    color: #333;
+}
+
+.gutenberg-accordion .accordion-content {
+    display: block;
+    color: #666;
+}

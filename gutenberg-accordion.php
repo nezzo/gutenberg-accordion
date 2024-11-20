@@ -43,12 +43,19 @@ function gutenberg_accordion_register_block() {
 add_action("init", "gutenberg_accordion_register_block");
 
 function gutenberg_accordion_enqueue_scripts() {
-    wp_enqueue_script(
-        "gutenberg-accordion-script",
-        plugins_url("src/js/accordion.js", __FILE__),
+    wp_enqueue_style(
+        "bootstrap-css",
+        plugin_dir_url(__FILE__) . "node_modules/bootstrap/dist/css/bootstrap.min.css",
         [],
-        filemtime(plugin_dir_path( __FILE__) . "src/js/accordion.js"),
-        true 
+        null
+    );
+
+    wp_enqueue_script(
+        "bootstrap-js",
+        plugin_dir_url(__FILE__) . "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+        [],
+        null,
+        true
     );
 }
 add_action("wp_enqueue_scripts", "gutenberg_accordion_enqueue_scripts");

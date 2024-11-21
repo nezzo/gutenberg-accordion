@@ -9,9 +9,13 @@ registerBlockType("gutenberg/accordion-item", {
     attributes: {
         title: { type: "string", source: "html", selector: ".accordion-title" },
         content: { type: "string", source: "html", selector: ".accordion-content" },
+        index: { type: "int", default: 0 },
     },
     edit: ({ attributes, setAttributes }) => {
-        const { title, content } = attributes;
+        const { title, content, index } = attributes;
+        const accordionItems = document.querySelectorAll('.accordion-item').length;
+
+        setAttributes({ index: accordionItems });
 
         return (
             <div className="accordion-item">
@@ -34,18 +38,17 @@ registerBlockType("gutenberg/accordion-item", {
         );
     },
     save: ({ attributes }) => {
-        const { title, content } = attributes;
-        const uniqueId = Math.random().toString(36).substr(2, 9);
+        const { title, content, index } = attributes;
 
         return (
             <div className="accordion">
                 <div className="accordion-item">
-                    <h4 className="accordion-header" id={`heading-${uniqueId}`}>
-                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={`#collapse-${uniqueId}`} aria-expanded="false" aria-controls={`collapse-${uniqueId}`}>
+                    <h4 className="accordion-header" id={`heading-${index}`}>
+                        <button className="accordion-title accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={`#collapse-${index}`} aria-expanded="false" aria-controls={`collapse-${index}`}>
                             {title}
                         </button>
                     </h4>
-                    <div id={`collapse-${uniqueId}`} className="accordion-collapse collapse" aria-labelledby={`heading-${uniqueId}`}>
+                    <div id={`collapse-${index}`} className="accordion-collapse collapse" aria-labelledby={`heading-${index}`}>
                         <div className="accordion-body">
                             <RichText.Content tagName="p" className="accordion-content" value={content} />
                         </div>
